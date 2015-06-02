@@ -1,4 +1,4 @@
-package cafe2;
+package cafe;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class Foo {
+public class TestDriver {
    
    private DispenserMock dispenser;
    private MaquinaCafe maquinaCafe;

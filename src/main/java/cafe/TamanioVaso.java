@@ -1,4 +1,4 @@
-package cafe2;
+package cafe;
 
 public enum TamanioVaso {
    GRANDE, CHICO, VENTI

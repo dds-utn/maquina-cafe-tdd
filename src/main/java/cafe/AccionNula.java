@@ -1,4 +1,4 @@
-package cafe2;
+package cafe;
 
 public class AccionNula implements AccionDispenser {
 
