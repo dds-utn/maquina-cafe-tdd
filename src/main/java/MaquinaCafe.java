@@ -1,29 +1,41 @@
-import org.mockito.Mockito;
+import java.util.HashMap;
+import java.util.Map;
 
 import externo.DispenserAutomatico;
-import externo.TamanioVaso;
-import externo.TipoLeche;
 
 
 public class MaquinaCafe {
 
 	private DispenserAutomatico dispenser;
 	
+	private Pedido pedido;
+
 	public MaquinaCafe(DispenserAutomatico dispenser) {
 		super();
+		this.pedido = new Pedido();
 		this.dispenser = dispenser;
 	}
 
 	public void pulsar(String accion) {
-		if (accion.equals("aceptar")) {
-			dispenser.ponerVaso(TamanioVaso.Grande);
-			dispenser.dispensarSyrup(1);
-			dispenser.dispensarLeche(TipoLeche.Descremada, 1);
-			dispenser.dispensarCafe("colombiano", 10);
-			dispenser.dispensarAzucar(1);
-			dispenser.dispensarEspecia(0, 1);
+		switch (accion) {
+		case "grande":
+			pedido.setTamanio(new TamanioGrande());
+			break;
+		case "venti":
+			pedido.setTamanio(new TamanioVenti());
+			break;
+		case "syrupFlavoredLatte":
+			pedido.setBebida(new SyrupFlavoredLatte());
+			break;
+		case "aceptar":
+			pedido.preparar(dispenser);
+			break;
+		case "azucar":
+			pedido.agregarExtra(new AgregarAzucar());
+			break;
+		default:
+			throw new RuntimeException("Boton no definido");
 		}
-
 	}
 
 }

@@ -24,7 +24,6 @@ public class MaquinaCafeTest {
 		maquina.pulsar("grande");
 		maquina.pulsar("syrupFlavoredLatte");
 		maquina.pulsar("azucar");
-		maquina.pulsar("cacao");
 		maquina.pulsar("aceptar");
 		
 		Mockito.verify(dispenser).ponerVaso(TamanioVaso.Grande); 
@@ -39,16 +38,17 @@ public class MaquinaCafeTest {
 	@Test
 	public void hacerUnSyrupFlavoredLatteVentiConAzucarYCacao() {
 		MaquinaCafe maquina = new MaquinaCafe(dispenser);
+		
 		maquina.pulsar("venti");
 		maquina.pulsar("syrupFlavoredLatte");
 		maquina.pulsar("azucar");
-		maquina.pulsar("cacao");
+		maquina.pulsar("azucar");
 		maquina.pulsar("aceptar");
 		
 		Mockito.verify(dispenser).ponerVaso(TamanioVaso.Venti); 
 		Mockito.verify(dispenser).dispensarSyrup(1);
 		Mockito.verify(dispenser).dispensarLeche(TipoLeche.Descremada, 1);
-		Mockito.verify(dispenser).dispensarAzucar(1);
+		Mockito.verify(dispenser, Mockito.times(2)).dispensarAzucar(1);
 		Mockito.verify(dispenser).dispensarCafe("colombiano", 10);
 		Mockito.verify(dispenser).dispensarEspecia(0, 1);
 		
