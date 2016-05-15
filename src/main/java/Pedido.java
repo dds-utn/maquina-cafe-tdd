@@ -8,6 +8,11 @@ public class Pedido {
 	private Tamanio tamanio;
 	private Bebida bebida;
 	private List<ContenidoExtra> extras = new ArrayList<>();
+	private DispenserAutomatico dispenser;
+
+	public Pedido(DispenserAutomatico dispenser) {
+		this.dispenser = dispenser;
+	}
 
 	public List<ContenidoExtra> getExtras() {
 		return extras;
@@ -21,7 +26,7 @@ public class Pedido {
 		this.bebida = bebida;
 	}
 
-	public void preparar(DispenserAutomatico dispenser) {
+	public void preparar() {
 		tamanio.ponerVaso(dispenser);
 		bebida.preparar(dispenser);
 		extras.forEach(extra -> extra.agregar(dispenser));

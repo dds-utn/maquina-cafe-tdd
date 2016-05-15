@@ -13,7 +13,7 @@ public class MaquinaCafeTest {
 
 	@Before
 	public void init() {
-		dispenser =
+		this.dispenser =
 				Mockito.
 				mock(DispenserAutomatico.class);
 	}

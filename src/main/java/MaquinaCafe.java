@@ -3,39 +3,28 @@ import java.util.Map;
 
 import externo.DispenserAutomatico;
 
-
 public class MaquinaCafe {
 
-	private DispenserAutomatico dispenser;
-	
 	private Pedido pedido;
+	private Map<String, Accion> acciones;
 
 	public MaquinaCafe(DispenserAutomatico dispenser) {
 		super();
-		this.pedido = new Pedido();
-		this.dispenser = dispenser;
+		this.pedido = new Pedido(dispenser);
+		this.inicializarAcciones();
+	}
+
+	private void inicializarAcciones() {
+		acciones = new HashMap<>();
+		acciones.put("grande", new PonerVaso(new TamanioGrande()));
+		acciones.put("venti", new PonerVaso(new TamanioVenti()));
+		acciones.put("syrupFlavoredLatte", new PonerBebida(new SyrupFlavoredLatte()));
+		acciones.put("aceptar", new Aceptar());
+		acciones.put("azucar", new AgregarExtra(new AgregarAzucar()));		
 	}
 
 	public void pulsar(String accion) {
-		switch (accion) {
-		case "grande":
-			pedido.setTamanio(new TamanioGrande());
-			break;
-		case "venti":
-			pedido.setTamanio(new TamanioVenti());
-			break;
-		case "syrupFlavoredLatte":
-			pedido.setBebida(new SyrupFlavoredLatte());
-			break;
-		case "aceptar":
-			pedido.preparar(dispenser);
-			break;
-		case "azucar":
-			pedido.agregarExtra(new AgregarAzucar());
-			break;
-		default:
-			throw new RuntimeException("Boton no definido");
-		}
+		this.acciones.get(accion).ejecutar(pedido);
 	}
 
 }
